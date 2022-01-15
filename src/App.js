@@ -11,7 +11,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/jsonplaceholder-posts" element={<HomePage />} />
         <Route path="/details" element={<DetailsViewPage />} />
       </Routes>
     </BrowserRouter>
