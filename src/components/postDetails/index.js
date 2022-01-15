@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 function SinglePostDetails({ singlePost }) {
   let navigate = useNavigate();
 
-  const navigatetoListing = () => navigate("../", { replace: true });
+  const navigatetoListing = () =>
+    navigate("../jsonplaceholder-posts/", { replace: true });
 
   return (
     <div>
