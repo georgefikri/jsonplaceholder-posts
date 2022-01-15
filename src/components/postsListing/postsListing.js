@@ -5,6 +5,7 @@ import {
   deletePost,
   getPostById,
 } from "../../redux/postsReducer/actionCreator";
+import { Outlet, Link } from "react-router-dom";
 
 function PostsList({ posts, postsFiltered, getPostById }) {
   const dispatch = useDispatch();
@@ -31,12 +32,13 @@ function PostsList({ posts, postsFiltered, getPostById }) {
                   <td>{post?.title}</td>
                   <td>{post?.body}</td>
                   <td>
-                    <Button
-                      variant="primary"
+                    <Link
+                      className="btn btn-primary"
+                      to="/details"
                       onClick={() => getPostById(post?.id)}
                     >
-                      Edit
-                    </Button>
+                      edit
+                    </Link>
                     <Button
                       onClick={() => handleDelete(post?.id)}
                       variant="secondary"

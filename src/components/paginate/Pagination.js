@@ -23,7 +23,10 @@ function PaginationComponent({
             >
               <a
                 href="!#"
-                onClick={() => paginate(number)}
+                onClick={(e) => {
+                  paginate(number);
+                  e.preventDefault();
+                }}
                 className="page-link"
               >
                 {number}
