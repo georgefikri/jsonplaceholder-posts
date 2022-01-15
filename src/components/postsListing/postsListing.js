@@ -10,7 +10,8 @@ import { Outlet, Link } from "react-router-dom";
 function PostsList({ posts, postsFiltered, getPostById }) {
   const dispatch = useDispatch();
 
-  const handleDelete = (id, posts) => dispatch(deletePost(id, postsFiltered));
+  const handleDelete = (id, postsFiltered) =>
+    dispatch(deletePost(id, postsFiltered));
 
   return (
     <div>
