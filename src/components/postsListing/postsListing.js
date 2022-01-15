@@ -1,9 +1,12 @@
 import { Button, Spinner, Table } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { deletePost } from "../redux/postsReducer/actionCreator";
+import {
+  deletePost,
+  getPostById,
+} from "../../redux/postsReducer/actionCreator";
 
-function PostsList({ posts, postsFiltered }) {
+function PostsList({ posts, postsFiltered, getPostById }) {
   const dispatch = useDispatch();
 
   const handleDelete = (id) => dispatch(deletePost(id));
@@ -28,7 +31,12 @@ function PostsList({ posts, postsFiltered }) {
                   <td>{post?.title}</td>
                   <td>{post?.body}</td>
                   <td>
-                    <Button variant="primary">Edit</Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => getPostById(post?.id)}
+                    >
+                      Edit
+                    </Button>
                     <Button
                       onClick={() => handleDelete(post?.id)}
                       variant="secondary"
@@ -56,6 +64,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       deletePost,
+      getPostById,
     },
     dispatch
   );

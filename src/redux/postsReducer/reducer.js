@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   currentPage: 1,
   postsPerPage: 10,
+  singlePost: {},
 };
 
 export const postsReducer = (state = initialState, action) => {
@@ -85,7 +86,7 @@ export const postsReducer = (state = initialState, action) => {
     }
 
     // filtered posts
-        case actions.FILTERED_POSTS: {
+    case actions.FILTERED_POSTS: {
       return {
         ...state,
         react_loading: true,
@@ -109,6 +110,31 @@ export const postsReducer = (state = initialState, action) => {
       };
     }
 
+    // single post
+
+    case actions.SINGLE_POST: {
+      return {
+        ...state,
+        react_loading: true,
+        singlePost: null,
+        error: false,
+      };
+    }
+    case actions.SINGLE_POST_SUCCESS: {
+      return {
+        ...state,
+        react_loading: false,
+        error: false,
+        singlePost: action.payload,
+      };
+    }
+    case actions.SINGLE_POST_FAILURE: {
+      return {
+        ...state,
+        react_loading: false,
+        error: action.payload,
+      };
+    }
 
     default:
       return state;

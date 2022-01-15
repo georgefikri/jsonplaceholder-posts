@@ -1,13 +1,9 @@
 import * as actions from "./constants";
-import rootReducer from "../rootReducer";
-import { PostsServiceServiceFactory } from "../../services";
 
-import { getFn, removePost } from "../../services-new";
+import { getPosts, removePost, getPostsById } from "../../services/API";
 
 const route = "https://jsonplaceholder.typicode.com";
 const serviceRoute = "posts";
-
-let PostsService = PostsServiceServiceFactory.getInstance();
 
 export function postsUsers(credentials) {
   return async (dispatch) => {
@@ -34,7 +30,7 @@ export function getAllPosts() {
       type: actions.POSTS,
     });
     // const posts = await PostsService.getAll();
-    getFn()
+    getPosts()
       .then((posts) => {
         dispatch({
           type: actions.POSTS_SUCCESS,
@@ -78,8 +74,7 @@ export function getCertainPosts(currentPage, postsPerPage) {
     dispatch({
       type: actions.FILTERED_POSTS,
     });
-    // const posts = await PostsService.getAll();
-    getFn()
+    getPosts()
       .then((posts) => {
         const indexOfLastCountry = currentPage * postsPerPage;
         const indexOfFirstCountry = indexOfLastCountry - postsPerPage;
@@ -94,27 +89,32 @@ export function getCertainPosts(currentPage, postsPerPage) {
           payload: error,
         });
       });
-    // try {
-    //   dispatch({
-    //     type: actions.FILTERED_POSTS,
-    //   });
-    //   const posts = await PostsService.getAll();
-    //   const indexOfLastCountry = currentPage * postsPerPage;
-    //   const indexOfFirstCountry = indexOfLastCountry - postsPerPage;
-    //   // console.log('bos hena certain', posts?.data.slice(indexOfFirstCountry, indexOfLastCountry))
-    //   dispatch({
-    //     type: actions.FILTERED_POSTS_SUCCESS,
-    //     payload: posts.data.slice(indexOfFirstCountry, indexOfLastCountry),
-    //   });
-    // } catch (error) {
-    //   dispatch({
-    //     type: actions.FILTERED_POSTS_FAILURE,
-    //     payload: error,
-    //   });
-    // }
   };
 }
 
+export function getPostById(id) {
+  console.log("inside post by id", id);
+  return async (dispatch) => {
+    dispatch({
+      type: actions.SINGLE_POST,
+    });
+    getPostsById(id)
+      .then((posts) => {
+        dispatch({
+          type: actions.SINGLE_POST_SUCCESS,
+          payload: posts.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: actions.SINGLE_POST_FAILURE,
+          payload: error,
+        });
+      });
+  };
+}
+
+// navigation paginations actions
 export function currentPageNumber(currentPageNumber) {
   return async (dispatch) => {
     try {

@@ -12,22 +12,19 @@ import {
   postsPerPages,
   getCertainPosts,
   getNextPage,
+  getPostById,
 } from "./redux/postsReducer/actionCreator";
-import { Button, Spinner, Table } from "react-bootstrap";
 
-import PaginationComponent from "./Pagination";
-import { PostsListing } from "./components/postsListing";
+import PaginationComponent from "./components/paginate/Pagination";
+import { PostsListing } from "./components/postsListing/postsListing";
 
 // land of the thousand imports
-
-import { getFn } from "./services-new";
 
 function App({ posts, postsPerPage, currentPage, postsFiltered }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllPosts(currentPage, postsPerPage));
-    // getFn();
   }, []);
 
   useEffect(() => {
@@ -47,32 +44,6 @@ function App({ posts, postsPerPage, currentPage, postsFiltered }) {
         paginate={paginate}
         currentPage={currentPage}
       />
-      {/* <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {posts?.length &&
-            postsFiltered?.map((post, index) => {
-              return (
-                <tr key={post?.id}>
-                  <td>{post?.id}</td>
-                  <td>{post?.title}</td>
-                  <td>{post?.body}</td>
-                  <td>
-                    <Button variant="primary">Edit</Button>
-                    <Button variant="secondary">delete</Button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </Table> */}
     </div>
   );
 }
@@ -92,6 +63,7 @@ const mapDispatchToProps = (dispatch) => {
       postsPerPages,
       getCertainPosts,
       getNextPage,
+      getPostById,
     },
     dispatch
   );
