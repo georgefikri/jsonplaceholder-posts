@@ -46,19 +46,26 @@ export function getAllPosts() {
   };
 }
 
-export function deletePost(id) {
+export function deletePost(id, posts) {
   console.log("theid", id);
-  return async (dispatch) => {
+  console.log("all posts passed", posts);
+  return (dispatch) => {
     dispatch({
       type: actions.FILTERED_POSTS,
     });
     removePost(id)
-      .then((posts) => {
-        console.log("postsss", posts);
-        dispatch({
-          type: actions.FILTERED_POSTS_SUCCESS,
-          payload: posts.data,
-        });
+      .then((res) => {
+        console.log("postsss", res);
+        if (res.status !== 200) {
+          return;
+        } else {
+          dispatch({
+            type: actions.FILTERED_POSTS_SUCCESS,
+            payload: posts.filter((post) => {
+              return post.id !== id;
+            }),
+          });
+        }
       })
       .catch((error) => {
         dispatch({

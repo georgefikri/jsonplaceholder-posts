@@ -10,7 +10,7 @@ import { Outlet, Link } from "react-router-dom";
 function PostsList({ posts, postsFiltered, getPostById }) {
   const dispatch = useDispatch();
 
-  const handleDelete = (id) => dispatch(deletePost(id));
+  const handleDelete = (id, posts) => dispatch(deletePost(id, postsFiltered));
 
   return (
     <div>
@@ -40,7 +40,7 @@ function PostsList({ posts, postsFiltered, getPostById }) {
                       edit
                     </Link>
                     <Button
-                      onClick={() => handleDelete(post?.id)}
+                      onClick={() => handleDelete(post?.id, posts)}
                       variant="secondary"
                     >
                       delete
