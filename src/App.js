@@ -1,6 +1,6 @@
 // land of the thousand imports
 import { useEffect } from "react";
-import "./App.css";
+import "./App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { connect, useDispatch } from "react-redux";
@@ -11,31 +11,43 @@ import {
   currentPageNumber,
   postsPerPages,
   getCertainPosts,
+  getNextPage,
 } from "./redux/postsReducer/actionCreator";
 import { Button, Spinner, Table } from "react-bootstrap";
+
+import PaginationComponent from "./Pagination";
+import { PostsListing } from "./components/postsListing";
+
 // land of the thousand imports
+
+import { getFn } from "./services-new";
 
 function App({ posts, postsPerPage, currentPage, postsFiltered }) {
   const dispatch = useDispatch();
 
-
-  // console.log("postsPerPage, currentPage", postsPerPage, currentPage);
-
   useEffect(() => {
-    dispatch(getAllPosts());
+    dispatch(getAllPosts(currentPage, postsPerPage));
+    // getFn();
   }, []);
 
   useEffect(() => {
-    if(currentPage) {
-      console.log('goa el if')
-      dispatch(getCertainPosts(currentPage, postsPerPage))
+    if (currentPage) {
+      dispatch(getCertainPosts(currentPage, postsPerPage));
     }
-    
-  }, [posts])
+  }, [posts, currentPage]);
+
+  const paginate = (pageNumber) => dispatch(getNextPage(pageNumber));
 
   return (
     <div className="App">
-      <Table striped bordered hover>
+      <PostsListing posts={posts} postsFiltered={postsFiltered} />
+      <PaginationComponent
+        postsPerPage={postsPerPage}
+        totalPosts={posts?.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
+      {/* <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
@@ -60,7 +72,7 @@ function App({ posts, postsPerPage, currentPage, postsFiltered }) {
               );
             })}
         </tbody>
-      </Table>
+      </Table> */}
     </div>
   );
 }
@@ -69,7 +81,7 @@ const mapStateToProps = (state) => ({
   posts: state?.posts.allPosts,
   currentPage: state?.posts?.currentPage,
   postsPerPage: state?.posts?.postsPerPage,
-  postsFiltered: state?.posts?.filteredPosts
+  postsFiltered: state?.posts?.filteredPosts,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -79,6 +91,7 @@ const mapDispatchToProps = (dispatch) => {
       currentPageNumber,
       postsPerPages,
       getCertainPosts,
+      getNextPage,
     },
     dispatch
   );
