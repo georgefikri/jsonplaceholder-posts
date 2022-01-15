@@ -6,7 +6,7 @@ function SinglePostDetails({ singlePost }) {
   let navigate = useNavigate();
 
   const navigatetoListing = () =>
-    navigate("../jsonplaceholder-posts/", { replace: true });
+    navigate("../jsonplaceholder-posts/", { replace: false });
 
   return (
     <div>
