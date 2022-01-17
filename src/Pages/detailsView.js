@@ -1,4 +1,4 @@
-import SinglePostDetails from "../components/postDetails";
+import SinglePostDetails from "../components/postDetails/postDetails";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
