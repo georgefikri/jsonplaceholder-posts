@@ -14,7 +14,7 @@ function PostsList({ posts, postsFiltered, getPostById }) {
     dispatch(deletePost(id, postsFiltered));
 
   return (
-    <div>
+    <div className="postsListing">
       <Table striped bordered hover>
         <thead>
           <tr>

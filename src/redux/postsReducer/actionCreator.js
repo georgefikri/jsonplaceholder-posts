@@ -1,9 +1,6 @@
 import * as actions from "./constants";
 
-import { getPosts, removePost, getPostsById } from "../../services/API";
-
-const route = "https://jsonplaceholder.typicode.com";
-const serviceRoute = "posts";
+import { getPosts, removePost, getPostsById } from "../../services";
 
 export function postsUsers(credentials) {
   return async (dispatch) => {
@@ -47,15 +44,12 @@ export function getAllPosts() {
 }
 
 export function deletePost(id, posts) {
-  console.log("theid", id);
-  console.log("all posts passed", posts);
   return (dispatch) => {
     dispatch({
       type: actions.FILTERED_POSTS,
     });
     removePost(id)
       .then((res) => {
-        console.log("postsss", res);
         if (res.status !== 200) {
           return;
         } else {
@@ -100,7 +94,6 @@ export function getCertainPosts(currentPage, postsPerPage) {
 }
 
 export function getPostById(id) {
-  console.log("inside post by id", id);
   return async (dispatch) => {
     dispatch({
       type: actions.SINGLE_POST,

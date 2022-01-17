@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function SinglePostDetails({ singlePost }) {
@@ -9,23 +9,41 @@ function SinglePostDetails({ singlePost }) {
     navigate("../jsonplaceholder-posts/", { replace: false });
 
   return (
-    <div>
-      <Button variant="primary" onClick={() => navigatetoListing()}>
+    <div className="postDetails">
+      <Button
+        variant="primary"
+        className="backButton"
+        onClick={() => navigatetoListing()}
+      >
         go back
       </Button>
+      <h1>Post Details</h1>
       <Form>
         <Form.Group className="mb-3" controlId="title.ControlInput1">
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="name@example.com"
-            value={singlePost?.title}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="body.ControlTextarea1">
-          <Form.Label>Body</Form.Label>
-          <Form.Control as="textarea" rows={6} value={singlePost?.body} />
+          <Row>
+            <Form.Group className="mb-3" controlId="title.ControlInput1">
+              <Col xs={4} className="label">
+                Title
+              </Col>
+              <Col xs={6} className="fieldControl">
+                <Form.Control
+                  type="email"
+                  placeholder="name@example.com"
+                  value={singlePost?.title}
+                />
+              </Col>
+            </Form.Group>
+          </Row>
+          <Row>
+            <Form.Group className="mb-3" controlId="body.ControlTextarea1">
+              <Col xs={4} className="label">
+                Body
+              </Col>
+              <Col xs={6} className="fieldControl">
+                <Form.Control as="textarea" rows={6} value={singlePost?.body} />
+              </Col>
+            </Form.Group>
+          </Row>
         </Form.Group>
       </Form>
     </div>

@@ -1,6 +1,5 @@
 // land of the thousand imports
 import { useEffect } from "react";
-import "../App.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { connect, useDispatch } from "react-redux";
@@ -36,6 +35,7 @@ function Home({ posts, postsPerPage, currentPage, postsFiltered }) {
 
   return (
     <div className="App">
+      <h1>Posts Listing</h1>
       <PostsListing posts={posts} postsFiltered={postsFiltered} />
       <PaginationComponent
         postsPerPage={postsPerPage}
